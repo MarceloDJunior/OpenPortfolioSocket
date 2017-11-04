@@ -3,7 +3,7 @@ const socketIO = require('socket.io');
 
 const path = require('path');
 
-const PORT = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
