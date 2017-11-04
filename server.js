@@ -11,12 +11,13 @@ const server = express()
     .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = socketIO(server);
-io.set('origins', '*:*');
-io.set('match origin protocol', true);
-io.set('transports', ['xhr-polling']);
-io.set('polling duration', 10);
 
 io.on('connection', (client) => {
+
+    io.set('origins', '*:*');
+    io.set('match origin protocol', true);
+    io.set('transports', ['xhr-polling']);
+    io.set('polling duration', 10);
 
     client.on('disconnect', () => {
         console.log('user disconnected');
