@@ -11,6 +11,8 @@ const server = express()
     .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = socketIO(server);
+io.set('origins', '*:*');
+io.set('match origin protocol', true);
 
 io.on('connection', (client) => {
 
