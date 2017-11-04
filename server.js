@@ -3,7 +3,7 @@ const socketIO = require('socket.io');
 
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
@@ -13,6 +13,8 @@ const server = express()
 const io = socketIO(server);
 io.set('origins', '*:*');
 io.set('match origin protocol', true);
+io.set('transports', ['xhr-polling']);
+io.set('polling duration', 10);
 
 io.on('connection', (client) => {
 
