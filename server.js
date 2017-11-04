@@ -12,15 +12,12 @@ const server = express()
 const io = socketIO(server);
 
 io.on('connection', (client) => {
-    console.log('user connected');
 
     client.on('disconnect', () => {
-        console.log('user disconnected');
         client.disconnect(true);
     });
 
     client.on('subscribeToNotifications', (user_id) => {
-        console.log('client is subscribing to notifications ', user_id);
         client.leave(user_id);
         client.join(user_id);
     });
@@ -28,7 +25,6 @@ io.on('connection', (client) => {
     client.on('sendNotificationTo', (data) => {
         let json = JSON.parse(data);
         let notification = JSON.parse(json.notification);
-        console.log("notification", notification);
         client.broadcast.to(notification.usuario_destino.codigo).emit("new notification", notification);
     });
 
