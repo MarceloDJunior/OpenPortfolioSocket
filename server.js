@@ -28,7 +28,7 @@ io.on('connection', (client) => {
     client.on('sendNotificationTo', (data) => {
         let json = JSON.parse(data);
         let notification = JSON.parse(json.notification);
-        console.log("notification", notification);
+        console.log("notification sent");
         client.broadcast.to(notification.usuario_destino.codigo).emit("new notification", notification);
     });
 
