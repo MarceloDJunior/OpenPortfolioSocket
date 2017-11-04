@@ -23,7 +23,6 @@ io.on('connection', (client) => {
         console.log('client is subscribing to notifications ', user_id);
         client.leave(user_id);
         client.join(user_id);
-        client.emit("receive code", user_id);
     });
 
     client.on('sendNotificationTo', (data) => {
