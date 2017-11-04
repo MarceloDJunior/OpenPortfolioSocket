@@ -10,10 +10,10 @@ const server = express()
     .use((req, res) => res.sendFile(INDEX))
     .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const io = socketIO(server, {
+const io = socketIO(server, /*{
     pingInterval: 15000,
     pingTimeout: 30000,
-});
+}*/);
 
 io.on('connection', (client) => {
 
