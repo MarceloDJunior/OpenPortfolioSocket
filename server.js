@@ -3,7 +3,7 @@ const socketIO = require('socket.io');
 
 const path = require('path');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
@@ -13,11 +13,6 @@ const server = express()
 const io = socketIO(server);
 
 io.on('connection', (client) => {
-
-    io.set('origins', '*:*');
-    io.set('match origin protocol', true);
-    io.set('transports', ['xhr-polling']);
-    io.set('polling duration', 10);
 
     client.on('disconnect', () => {
         console.log('user disconnected');
