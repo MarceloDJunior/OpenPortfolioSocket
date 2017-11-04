@@ -16,13 +16,16 @@ io.on('connection', (client) => {
 
     client.on('disconnect', () => {
         console.log('user disconnected');
-        client.disconnect(true);
     });
 
     client.on('subscribeToNotifications', (user_id) => {
         console.log('client is subscribing to notifications ', user_id);
-        client.leave(user_id);
         client.join(user_id);
+    });
+
+    client.on('close', (user_id) => {
+        client.leave(user_id);
+        client.disconnect(true);
     });
 
     client.on('sendNotificationTo', (data) => {
