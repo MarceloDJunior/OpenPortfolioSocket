@@ -1,7 +1,5 @@
 const express = require('express');
-const socketIO = require('socket.io', ({
-    transports  : ['websocket']
-}));
+const socketIO = require('socket.io');
 
 const path = require('path');
 
@@ -9,10 +7,13 @@ const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
-    .use((req, res) => res.sendFile(INDEX) )
+    .use((req, res) => res.sendFile(INDEX))
     .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const io = socketIO(server);
+const io = socketIO(server, {
+    pingInterval: 15000,
+    pingTimeout: 30000,
+});
 
 io.on('connection', (client) => {
 
