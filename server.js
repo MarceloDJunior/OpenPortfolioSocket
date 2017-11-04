@@ -11,6 +11,11 @@ const server = express()
 
 const io = socketIO(server);
 
+io.configure(function () {
+    io.set("transports", ["xhr-polling"]);
+    io.set("polling duration", 10);
+});
+
 io.on('connection', (client) => {
 
     client.on('disconnect', () => {
