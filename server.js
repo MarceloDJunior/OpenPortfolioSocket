@@ -1,3 +1,5 @@
+//PARA FUNCIONAR NO HEROKU
+
 const express = require('express');
 const socketIO = require('socket.io');
 
@@ -11,6 +13,15 @@ const server = express()
     .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const io = socketIO(server);
+
+/*
+PARA FUNCIONAR LOCALMENTE
+const io = require('socket.io')();
+
+const port = 8000;
+io.listen(port);
+console.log('listening on port ', port);
+*/
 
 io.on('connection', (client) => {
 
@@ -28,10 +39,8 @@ io.on('connection', (client) => {
         client.disconnect(true);
     });
 
-    client.on('sendNotificationTo', (data) => {
-        let json = JSON.parse(data);
-        let notification = JSON.parse(json.notification);
-        console.log("notification sent");
+    client.on('sendNotificationTo', (notification) => {
+        console.log("notificationSent");
         client.broadcast.to(notification.usuario_destino.codigo).emit("new notification", notification);
     });
 
